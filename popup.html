@@ -4,34 +4,77 @@
  "browser_action" field in manifest.json contains the "default_popup" key with
  value "popup.html".
  -->
+
 <html>
   <head>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>-->
     <title>Inbox2SF</title>
     <style>
       body {
         font-family: "Segoe UI", "Lucida Grande", Tahoma, sans-serif;
         font-size: 100%;
         width:250px;
-
       }
-
       button {display:block;margin-left:auto;margin-right:auto;margin-top:10px;width:200px;height:40px;background-color:#104caf;color:#fff;text-align:center;}
+      #description {height:175px;margin-top:10px;overflow: scroll;overflow-x: hidden;width:100%;}
+      #sub{min-width: 115px;}
+      select {margin-top:5px;margin-bottom:5px;display:block;}
+      input {margin-top:5px;margin-bottom:5px;}
+      .box__dragndrop,.box__uploading,.box__success,.box__error {display: none;}
     </style>
-
     <!--
       - JavaScript and HTML must be in separate files: see our Content Security
       - Policy documentation[1] for details and explanation.
       -
       - [1]: https://developer.chrome.com/extensions/contentSecurityPolicy
      -->
-    <script src="popup.js"></script>
+     <script type="text/javascript" src="popup.js"></script>
+     <script type="text/javascript" src="background.js"></script> 
   </head>
   <body>
     <button id="populate">Populate Case</button>
     <button id="email">Send Email</button>
-    <button id="createCase">Create Case</button>
-    <script type="text/javascript" src="popup.js"></script>
+    <button id="cc">Create Case</button>
+      <form name="myform" method="POST">
+      <div align="center">
+      <input type="text" size="25" placeholder='Account Name'>
+      <input type="text" size="25" placeholder='Service Account'>
+      <input type="text" size="25" placeholder='Account Contact'>
+      <select name="category" id="category" size="1">
+        <option value="">--None--</option>
+        <option value="Analytics">Analytics</option>
+        <option value="Compliance">Compliance</option>
+        <option value="Composer">Composer</option>
+        <option value="ControlCenter">ControlCenter</option>
+        <option value="Customization">Customization</option>
+        <option value="DDC Inventory">DDC Inventory</option>
+        <option value="DDC Leads">DDC Leads</option>
+        <option value="Digital Retailing">Digital Retailing</option>
+        <option value="Media">Media</option>
+        <option value="Site Outage">Site Outage</option>
+        <option value="Site Update">Site Update</option>
+        <option value="Social">Social</option>
+        <option value="Training">Training</option>
+        <option value="User Admin">User Admin</option>
+      </select>
+      <select id="sub">
+        <option value="">--None--</option>
+      </select>
+      <input type="hidden" name="region" value="en_US">
+      <input type="hidden" name="solution" value="Dealer.com (DDC)">
+      <input type="hidden" name="product" value="DDC-Websites">
+      <textarea name="description" id="description" form="myform">Copy/Paste email body here...</textarea>
+      <div class="box__input">
+        <input class="box__file" type="file" name="files[]" id="file" data-multiple-caption="{count} files selected" multiple />
+        <label for="file"><strong>Choose a file</strong><span class="box__dragndrop"> or drag it here</span>.</label>
+        <button class="box__button" type="submit">Upload</button>
+      </div>
+      <div class="box__uploading">Uploading&hellip;</div>
+      <div class="box__success">Done!</div>
+      <div class="box__error">Error! <span></span>.</div>
+      <br><br>
+      </div>
+      </form>
+      
   </body>
 </html>
-

@@ -1,7 +1,12 @@
 function setSub() {
+
+
     var cat = document.getElementById('category');
     var sel = cat.value;
     var sub = document.getElementById('sub');
+    if (sel == "") {
+        sub.innerHTML = '<select name="--none--" id="--none--" size="1"><option value="">--None--</option></select>';
+    };
     if (sel == "Analytics") {
         sub.innerHTML =
             '<select name="analytics" id="analytics" size="1"><option value="">--None--</option><option value="Advertising">Advertising</option><option value="Digital Retailing">Digital Retailing</option><option value="Inventory">Inventory</option><option value="Leads">Leads</option><option value="Managed Services">Managed Services</option><option value="Mobile Analytics App">Mobile Analytics App</option><option value="Web-Stats">Web-Stats</option></select>';
@@ -46,6 +51,8 @@ function setSub() {
         sub.innerHTML = '<select name="userAdmin" size="1"><option value="">--None--</option><option value="Password Reset">Password Reset</option><option value="Permissions">Permissions</option><option value="User Addition/ Removal">User Addition/ Removal</option><option value="User Removals">User Removals</option></select>';
     };
 }
+
+
 document.addEventListener('DOMContentLoaded', function() {
     document.getElementById('category').addEventListener('change', setSub);
 });
